@@ -117,6 +117,63 @@
 	label define p1q09 1 "Rural" 2 "Urban" 3 "Partly Urban" 4 "Forest" 5 "Unpopulated" , replace
 	label values p1q09 p1q09
 	
+	
+	* Part 2 question 1
+	forvalues i = 1/8 {
+		
+		replace p2q01`i' = 1 if !missing(p2q01`i')
+		
+	}
+	
+	
+	egen total_val = rowtotal(p2q011 - p2q018)
+	order total_val, after(p2q018)
+	
+	foreach var of varlist p2q011 - p2q018 {
+		
+		replace `var' = 0 if total_val > 0 & missing(`var')
+		
+	}
+	
+	drop total_val
+	
+
+	* Part 2 question 2
+	forvalues i = 1/8 {
+		
+		replace p2q02`i' = 1 if !missing(p2q02`i')
+		
+	}
+	
+	
+	egen total_val = rowtotal(p2q021 - p2q028)
+	order total_val, after(p2q028)
+	
+	foreach var of varlist p2q021 - p2q028 {
+		
+		replace `var' = 0 if total_val > 0 & missing(`var')
+		
+	}
+	
+	drop total_val
+	
+	* Part 2 question 3
+	replace p2q03 = 0 if p2q03 == 2
+	
+	forvalues i = 1/3 {
+		
+		replace p2q03`i' = . if p2q03 == 0
+		
+	}
+	
+	label define p2q03 1 "Yes" 0 "No" , replace
+	label values p2q03 p2q03	
+	
+	
+	
+	
+	
+	
 	* Value label for construction type
 	label define p3q01 1 "Bricked" 2 "Mud Made" 3 "Bricks & Mud" 4 "Other" , replace
 	label values p3q01 p3q01
@@ -503,7 +560,50 @@
 			
 		}
 		
-	}	
+	}
+	
+	
+	* Fixing Variable labels
+	
+	label variable p3q0812 "If No, Distance in KM"
+	label variable p3q0822 "If No, Distance in KM"
+	label variable p3q0832 "If No, Distance in KM"
+	label variable p3q0842 "If No, Distance in KM"
+	label variable p3q0852 "If No, Distance in KM"
+	label variable p3q0862 "If No, Distance in KM"
+	label variable p3q0871 "Hospital/Dispensary Yes"
+	label variable p3q0872 "If No, Distance in KM"
+	label variable p3q0881 "Facility of Midwife Yes"
+	label variable p3q0882 "If No, Distance in KM"
+	
+	
+	label variable p3q031 "Solid Waste Management System"
+	label variable p3q032 "If Yes, was it Govt or Pvt?"
+	
+	label variable p6q062 "If No, write distance in KM"
+	label variable p6q072 "If No, write distance in KM"
+	label variable p6q082 "If No, write distance in KM"
+	label variable p6q092 "If No, write distance in KM"
+	label variable p6q102 "If No, write distance in KM"
+	label variable p6q112 "If No, write distance in KM"
+	label variable p6q122 "If No, write distance in KM"
+	label variable p6q1312 "If No, write distance in KM"
+	label variable p6q1322 "If No, write distance in KM"
+	label variable p6q1332 "If No, write distance in KM"
+	
+	label variable p6q1511 "Depot/Agency/Shop"	
+	label variable p6q1512 "If No, write distance in KM"	
+	
+	label variable p6q1522 "If No, write distance in KM"	
+	label variable p6q1532 "If No, write distance in KM"	
+	
+	label variable p6q1612 "If No, write distance in KM"	
+	label variable p6q1622 "If No, write distance in KM"		
+	label variable p6q1632 "If No, write distance in KM"		
+	
+	label variable p7q012 "If Yes, Area of land in Acres"			
+	label variable p7q022 "If Yes, Area of land in Acres"				
+
 	
 	
 ********************************************************************************
